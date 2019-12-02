@@ -2,6 +2,7 @@ export default function reducer(previous, { type, data }) {
   const state = { ...previous };
 
   switch (type) {
+    // get orders from the database
     case "orders.update":
       state.orders = data;
       break;

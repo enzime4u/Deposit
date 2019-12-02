@@ -24,10 +24,10 @@ export default function MyTable({ tableHead, tableData, widthArr }) {
           </Table>
           <ScrollView style={styles.dataWrapper}>
             <Table borderStyle={{ borderWidth: 1, borderColor: "#C1C0B9" }}>
-              {tableData.map((entry, index) => (
+              {tableData.map((rowData, index) => (
                 <Row
                   key={index}
-                  data={tableData}
+                  data={rowData}
                   widthArr={widthArr}
                   style={styles.row}
                   textStyle={styles.textRow}
