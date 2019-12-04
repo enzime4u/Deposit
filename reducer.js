@@ -7,6 +7,14 @@ export default function reducer(previous, { type, data }) {
       state.orders = data;
       break;
 
+    case "order.select":
+      state.selected = data;
+      break;
+
+    case "order.select.products":
+      state.selected.products = data;
+      break;
+
     default:
       throw Error("App: action type not found.");
   }

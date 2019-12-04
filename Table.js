@@ -1,15 +1,22 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
-  Alert
+  TouchableOpacity
 } from "react-native";
-import { Table, TableWrapper, Row, Rows } from "react-native-table-component";
+import { Table, Row } from "react-native-table-component";
+import Modal from "./Modal";
+import { useStore, dispatch } from "./Provider";
+import { getOrderProducts } from "./orders";
 
 export default function MyTable({ tableHead, tableData, widthArr }) {
+  const [selected, setSelected] = useState(null);
+
+  if (selected) {
+    return <Modal product={selected} onClose={() => setSelected(null)} />;
+  }
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>
@@ -24,10 +31,22 @@ export default function MyTable({ tableHead, tableData, widthArr }) {
           </Table>
           <ScrollView style={styles.dataWrapper}>
             <Table borderStyle={{ borderWidth: 1, borderColor: "#C1C0B9" }}>
-              {tableData.map((rowData, index) => (
+              {tableData.map((order, index) => (
                 <Row
+                  onPress={() => {
+                    dispatch({ type: "order.select", data: order });
+
+                    getOrderProducts(order.id).then(products => {
+                      dispatch({
+                        type: "order.select.products",
+                        data: products
+                      });
+                      console.log(products);
+                    });
+                    console.log(products);
+                  }}
                   key={index}
-                  data={rowData}
+                  data={order}
                   widthArr={widthArr}
                   style={styles.row}
                   textStyle={styles.textRow}
