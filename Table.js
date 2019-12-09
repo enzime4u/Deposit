@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -7,16 +7,15 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Table, Row } from "react-native-table-component";
-import Modal from "./Modal";
-import { useStore, dispatch } from "./Provider";
+import ShowModal from "./Modal";
+import { useStore } from "./Provider";
 import { getOrderProducts } from "./orders";
 
 export default function MyTable({ tableHead, tableData, widthArr }) {
-  const [selected, setSelected] = useState(null);
+  const [state, dispatch] = useStore();
 
-  if (selected) {
-    return <Modal product={selected} onClose={() => setSelected(null)} />;
-  }
+  const selected = state.selected;
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>
@@ -34,16 +33,12 @@ export default function MyTable({ tableHead, tableData, widthArr }) {
               {tableData.map((order, index) => (
                 <Row
                   onPress={() => {
-                    dispatch({ type: "order.select", data: order });
-
-                    getOrderProducts(order.id).then(products => {
+                    getOrderProducts(order[0]).then(products => {
                       dispatch({
-                        type: "order.select.products",
+                        type: "order.select",
                         data: products
                       });
-                      console.log(products);
                     });
-                    console.log(products);
                   }}
                   key={index}
                   data={order}
@@ -53,6 +48,7 @@ export default function MyTable({ tableHead, tableData, widthArr }) {
                 />
               ))}
             </Table>
+            <ShowModal />
           </ScrollView>
         </View>
       </ScrollView>

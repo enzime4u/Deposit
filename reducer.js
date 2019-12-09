@@ -9,6 +9,12 @@ export default function reducer(previous, { type, data }) {
 
     case "order.select":
       state.selected = data;
+      state.modalShow = true;
+      break;
+
+    case "order.deselect":
+      state.selected = data;
+      state.modalShow = false;
       break;
 
     case "order.select.products":
