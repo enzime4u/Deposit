@@ -13,3 +13,16 @@ export function getOrderProducts(id) {
     body: JSON.stringify({ id: id })
   }).then(response => response.json());
 }
+
+export function sendProduct(data) {
+  const sendProductURL =
+    "https://mvctest.staging.psw.ro/application/save-product";
+
+  return fetch(sendProductURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  }).then(response => {
+    response.blob();
+    console.log(response);
+  });
+}

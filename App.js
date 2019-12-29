@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, StyleSheet, Text, View, Button } from "react-native";
 
 import MyTable from "./Table";
 import Provider, { useStore } from "./Provider";
 import { getOrders } from "./orders.js";
+import AddProduct from "./AddProduct";
+import Login from "./Login";
+import Register from "./Register";
 
 function Main() {
   const [state, dispatch] = useStore();
@@ -22,13 +25,18 @@ function Main() {
   ]);
   const widthArr = [400, 200, 400];
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <MyTable
         tableHead={ordersHeadersArray}
         tableData={ordersDataArray}
         widthArr={widthArr}
       />
-    </View>
+      <Button
+        title="add new product"
+        onPress={() => dispatch({ type: "product.add.show", data: null })}
+      />
+      <AddProduct />
+    </SafeAreaView>
   );
 }
 

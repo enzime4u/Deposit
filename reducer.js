@@ -1,3 +1,5 @@
+// [service].[section].[command]
+
 export default function reducer(previous, { type, data }) {
   const state = { ...previous };
 
@@ -19,6 +21,14 @@ export default function reducer(previous, { type, data }) {
 
     case "order.select.products":
       state.selected.products = data;
+      break;
+
+    case "product.add.show":
+      state.showAddProduct = true;
+      break;
+
+    case "product.add.hide":
+      state.showAddProduct = false;
       break;
 
     default:

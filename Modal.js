@@ -23,7 +23,6 @@ export default function ShowModal(props) {
             <Text style={styles.quantity}>{product.quantity}</Text>
           </View>
         ))}
-        {console.log(state.selected)}
         <Button
           title="Go Back"
           onPress={() => dispatch({ type: "order.deselect", data: null })}

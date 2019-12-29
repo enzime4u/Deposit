@@ -1,5 +1,7 @@
 export default {
   selected: null,
   modalShow: false,
-  orders: []
+  orders: [],
+  showAddProduct: false,
+  product: {}
 };
