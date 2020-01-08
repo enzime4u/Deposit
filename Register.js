@@ -14,6 +14,23 @@ export default function Register() {
     password: ""
   });
 
+  function registerUser(user) {
+    fetch("http://mvctest.staging.psw.ro/application/save-user", {
+      method: "POST",
+      body: JSON.stringify(user)
+    })
+      .then(reply => {
+        setRegisterForm({
+          name: "",
+          email: "",
+          password: ""
+        });
+      })
+      .catch(error => {
+        console.log("error:", error);
+      });
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>Register your account</Text>
@@ -22,6 +39,7 @@ export default function Register() {
           style={styles.inputText}
           placeholder="enter your name"
           placeholderTextColor="#003f5c"
+          value={registerForm.name}
           onChangeText={value =>
             setRegisterForm({ ...registerForm, name: value })
           }
@@ -32,6 +50,7 @@ export default function Register() {
           style={styles.inputText}
           placeholder="enter your email adress"
           placeholderTextColor="#003f5c"
+          value={registerForm.email}
           onChangeText={value =>
             setRegisterForm({ ...registerForm, email: value })
           }
@@ -43,12 +62,16 @@ export default function Register() {
           secureTextEntry
           placeholder="enter desired password"
           placeholderTextColor="#003f5c"
+          value={registerForm.password}
           onChangeText={value =>
             setRegisterForm({ ...registerForm, password: value })
           }
         />
       </View>
-      <TouchableOpacity style={styles.signupBtn}>
+      <TouchableOpacity
+        style={styles.signupBtn}
+        onPress={() => registerUser(registerForm)}
+      >
         <Text style={styles.signupText}>Signup</Text>
       </TouchableOpacity>
     </View>

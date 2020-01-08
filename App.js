@@ -43,7 +43,7 @@ function Main() {
 export default function App() {
   return (
     <Provider>
-      <Main />
+      <Register />
     </Provider>
   );
 }
